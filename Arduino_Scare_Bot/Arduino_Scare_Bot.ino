@@ -140,8 +140,9 @@ int whichDance = 1;
 
 void setup() {
   Serial.begin (9600);
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  //Sets pinouts
+  pinMode(trigPin, OUTPUT); //Ultrasonic
+  pinMode(echoPin, INPUT); //Ultrasonic
   pinMode(led, OUTPUT);
   pinMode(servoYaw, OUTPUT);
   pinMode(servoRoll, OUTPUT);
@@ -162,14 +163,20 @@ void dance1()
   //Turns eyes on
   digitalWrite(led,HIGH); 
 
+  //Attaches servos
   servo_Yaw.attach(servoYaw);
   servo_Roll.attach(servoRoll);
+
+  //Writes starting values
   servo_Yaw.write(yawCentre);
   servo_Roll.write(rollCentre);
   delay(100);
-  
+
+  //Moves bot
   servo_Yaw.write(yawCentre-25);
   servo_Roll.write(rollCentre);
+
+  //These tones create a jingle through the buzzer
   tone(buzzer, Db6, E);
   delay(E + 1);
   tone(buzzer, Gb5, E);
@@ -185,8 +192,12 @@ void dance1()
   tone(buzzer, D6, Q);
   delay(Q + 1);
   delay(1000);
+
+  //Moves bot
   servo_Yaw.write(yawCentre+25);
   servo_Roll.write(rollCentre);
+
+  //Play the jingle again
   tone(buzzer, Db5, E);
   delay(E + 1);
   tone(buzzer, Gb4, E);
@@ -202,6 +213,7 @@ void dance1()
   tone(buzzer, D5, Q);
   delay(Q + 1);
 
+  //Move bot
   servo_Yaw.write(yawCentre);
   servo_Roll.write(rollCentre);
   noTone(buzzer);
@@ -221,15 +233,19 @@ void dance2()
 {
    //Turns eyes on
   digitalWrite(led,HIGH); 
-  
+
+  //Move bot
   servo_Yaw.attach(servoYaw);
   servo_Roll.attach(servoRoll);
   servo_Yaw.write(yawCentre);
   servo_Roll.write(rollCentre);
   delay(100);
-  
+
+  //Move bot
   servo_Yaw.write(yawCentre);
   servo_Roll.write(rollCentre-25);
+
+  //Play jingle
   tone(buzzer, Db6, E);
   delay(E + 1);
   tone(buzzer, Gb5, E);
@@ -245,8 +261,12 @@ void dance2()
   tone(buzzer, D6, Q);
   delay(Q + 1);
   delay(1000);
+
+  //Move bot
   servo_Yaw.write(yawCentre);
   servo_Roll.write(rollCentre+25);
+
+  //Play jingle
   tone(buzzer, Db5, E);
   delay(E + 1);
   tone(buzzer, Gb4, E);
@@ -262,6 +282,7 @@ void dance2()
   tone(buzzer, D5, Q);
   delay(Q + 1);
 
+  //Move bot
   servo_Yaw.write(yawCentre);
   servo_Roll.write(rollCentre);
   delay(300);
@@ -289,7 +310,7 @@ void loop() {
   distance = (duration/2) / 29.1; //Calculate distance based on duration of flight
   
   //If a person is detected, dance!
-  if (distance < 60) {
+  if (distance < 80) {
 
     //Flips between two dances 
     if (whichDance == 1)
